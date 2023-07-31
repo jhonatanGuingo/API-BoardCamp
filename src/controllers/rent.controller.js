@@ -1,7 +1,7 @@
 import { db } from "../database/database.js";
 
 
-export async function getRentals(){
+export async function getRentals(req, res){
     
     try {
         const rentals = await db.query(`SELECT rentals.*,
@@ -25,7 +25,7 @@ export async function getRentals(){
     }
 }
 
-export async function insertRent(){
+export async function insertRent(req, res){
     const { customerId, gameId, daysRented } = req.body;
 
     const today = Date.now();
@@ -90,7 +90,7 @@ export async function insertRent(){
 
 }
 
-export async function finishRent(){
+export async function finishRent(req, res){
     const {id} = req.params;
 
     
@@ -142,7 +142,7 @@ export async function finishRent(){
     }
 }
 
-export async function deleteRent(){
+export async function deleteRent(req, res){
    
     const {id} = req.params
     const cheekId = await db.query(`SELECT * FROM rentals WHERE id = $1`, [id]);
