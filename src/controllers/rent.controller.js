@@ -56,7 +56,7 @@ export async function insertRent(req, res){
         if(idGame.rows[0].stockTotal >= 0){
             const gameInStocked = await db.query('UPDATE games SET "stockTotal" = $1 WHERE id = $2', [(idGame.rows[0].stockTotal)-1, gameId]);
         }
-        if(idGame.rows[0].stockTotal <= 0){
+        if(idGame.rows[0].stockTotal === 0){
             res.sendStatus(400);
             return;
         }
@@ -96,7 +96,7 @@ export async function finishRent(req, res){
     const pricePerDay = await db.query(`SELECT * FROM games WHERE id = $1`, [rentExists.rows[0].gameId]);
     
 
-    if(rentExists.rows[0].returnDate ==! null){
+    if(rentExists.rows[0].returnDate !== null){
         res.sendStatus(400);
         return;
     }
