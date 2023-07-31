@@ -53,7 +53,7 @@ export async function insertRent(req, res){
 
 
     const originalPrice = pricePerDay * daysRented;
-    if (daysRented < 0) {
+    if (daysRented <= 0) {
         res.sendStatus(400);
         return;
     }

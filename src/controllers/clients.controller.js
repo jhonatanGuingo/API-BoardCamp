@@ -19,7 +19,10 @@ export async function getClientsById(req, res) {
     const {
         id
     } = req.params;
-    const clientId = await db.query("SELECT * FROM customers WHERE id = $1", [id])
+    const clientId = await db.query(`
+        SELECT 
+        id, name, phone, cpf, to_char(birthday, 'YYYY-MM-DD') AS birthday 
+        FROM customers;`);
     if (!clientId.rows[0]) {
         res.sendStatus(404);
         return
