@@ -1,8 +1,10 @@
+import { db } from "../database/database.js";
+
 export async function getClients(req, res) {
     try {
-        const custumers = await db.query(`
-        SELECT * FROM custumers;`);
-        res.send(custumers.rows);
+        const customers = await db.query(`
+        SELECT * FROM customers;`);
+        res.send(customers.rows);
     } catch (err) {
         res.send(err);
     }
@@ -57,7 +59,7 @@ export async function updateClientById(req, res) {
         birthday
     } = req.body;
 
-    const cpfCustomer = await connection.query(`
+    const cpfCustomer = await db.query(`
     SELECT * FROM customers WHERE cpf = ($1);`, [cpf]);
 
     if (cpfCustomer.rows[0]) {
